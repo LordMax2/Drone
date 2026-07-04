@@ -1,19 +1,21 @@
 #pragma once
 
-#include "base_control_mode.h"
+#include "concept_control_mode.h"
+#include "concept_drone_position.h"
+#include "control_mode_none.h"
 
 /*
  * The SomeGyroPidType should specify the throttle for each motor depending on the PID.
  * The SomeDroneGyroType should abstract away the hardware of an IMU and just implement a few interface methods.
  */
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 class TemplateDrone
 {
     float _throttle = 0;
     float _yaw_desired_angle = 0;
     float _pitch_desired_angle = 0;
     float _roll_desired_angle = 0;
-    BaseControlMode* _control_mode = controlModeNone();
+    ControlMode_t _current_control_mode = none;
     unsigned long _throttle_set_timestamp = 0;
     unsigned long _yaw_desired_angle_set_timestamp = 0;
     unsigned long _desired_pitch_angle_set_timestamp = 0;
@@ -65,7 +67,9 @@ public:
     void setPidConstants(float yaw_kp, float yaw_ki, float yaw_kd, bool yaw_compass_mode, float pitch_kp,
                          float pitch_ki, float pitch_kd, float roll_kp, float roll_ki, float roll_kd);
 
-    void activateControlMode(BaseControlMode* control_mode);
+    template <typename ControlMode>
+    requires ControlModeConcept<ControlMode_t, SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>
+    void activateControlMode(ControlMode* control_mode);
 
     float getThrottle() const;
 
@@ -129,17 +133,15 @@ public:
 
     bool isMotorsEnabled() const;
 
-    BaseControlMode *getControlMode() const;
+    ControlMode_t getControlMode() const;
 
-    void setControlMode(BaseControlMode *control_mode);
+    void setControlMode(ControlMode_t control_mode);
 
     unsigned long delayToKeepFeedbackLoopHz(long start_microseconds_timestamp) const;
 
     unsigned long timestampMicroseconds() const;
 
     unsigned long timestampMilliseconds() const;
-
-    ControlMode_t getControlModeType() const;
 
     int getFeedbackLoopHz() const;
 };
