@@ -1,7 +1,7 @@
 #pragma once
 #include "concept_control_mode.h"
 
-template <class U, class V, class W, class X>
+template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 class ControlModeNone
 {
 public:
@@ -10,12 +10,13 @@ public:
     static bool yawCompassMode() { return false; }
     static PidConstants_t pidConstants() { return PidConstants_t{}; }
 
-    static void activate(TemplateDroneMock<U, V, W, X>* drone)
+    static void activate(
+        TemplateDroneMock<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>* drone)
     {
     }
 
     static_assert(ControlModeConcept<
                       ControlModeNone,
-                      U, V, W, X
+                      SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType
                   >, "ControlModeNone does not satisfy ControlModeConcept");
 };

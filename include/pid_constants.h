@@ -24,7 +24,7 @@ struct PidConstants_t {
     float roll_ki;
     float roll_kd;
 
-    bool isValid() const {
+    [[nodiscard]] bool isValid() const {
         const bool everything_is_not_zero = yaw_kp != 0.0f && yaw_ki != 0.0f && yaw_kd != 0.0f &&
                                       pitch_kp != 0.0f && pitch_ki != 0.0f && pitch_kd != 0.0f &&
                                       roll_kp != 0.0f && roll_ki != 0.0f && roll_kd != 0.0f;
