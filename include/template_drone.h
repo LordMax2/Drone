@@ -2,13 +2,13 @@
 
 #include "concept_control_mode.h"
 #include "concept_drone_position.h"
-#include "control_mode_none.h"
 
 /*
  * The SomeGyroPidType should specify the throttle for each motor depending on the PID.
  * The SomeDroneGyroType should abstract away the hardware of an IMU and just implement a few interface methods.
  */
-template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType,
+    HardwareProcessorConcept SomeHardwareProcessorType>
 class TemplateDrone
 {
     float _throttle = 0;
@@ -68,28 +68,29 @@ public:
                          float pitch_ki, float pitch_kd, float roll_kp, float roll_ki, float roll_kd);
 
     template <typename ControlMode>
-    requires ControlModeConcept<ControlMode_t, SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>
+        requires ControlModeConcept<ControlMode_t, SomeGyroPidType, SomePositionType, SomeGyroType,
+                                    SomeHardwareProcessorType>
     void activateControlMode(ControlMode* control_mode);
 
-    float getThrottle() const;
+    [[nodiscard]] float getThrottle() const;
 
-    float getDesiredYawAngle() const;
+    [[nodiscard]] float getDesiredYawAngle() const;
 
-    float getDesiredPitchAngle() const;
+    [[nodiscard]] float getDesiredPitchAngle() const;
 
-    float getDesiredRollAngle() const;
+    [[nodiscard]] float getDesiredRollAngle() const;
 
-    float getAltitude() const;
+    [[nodiscard]] float getAltitude() const;
 
-    float getLongitude() const;
+    [[nodiscard]] float getLongitude() const;
 
-    float getLatitude() const;
+    [[nodiscard]] float getLatitude() const;
 
-    float getVelocityX() const;
+    [[nodiscard]] float getVelocityX() const;
 
-    float getVelocityY() const;
+    [[nodiscard]] float getVelocityY() const;
 
-    float getVelocityZ() const;
+    [[nodiscard]] float getVelocityZ() const;
 
     virtual void setup() = 0;
 
@@ -101,23 +102,23 @@ public:
 
     virtual void setupMotors() = 0;
 
-    bool updateGyro() const;
+    [[nodiscard]] bool updateGyro() const;
 
-    float getYaw() const;
+    [[nodiscard]] float getYaw() const;
 
-    float getPitch() const;
+    [[nodiscard]] float getPitch() const;
 
-    float getRoll() const;
+    [[nodiscard]] float getRoll() const;
 
-    float getAccelerationX() const;
+    [[nodiscard]] float getAccelerationX() const;
 
-    float getAccelerationY() const;
+    [[nodiscard]] float getAccelerationY() const;
 
-    float getAccelerationZ() const;
+    [[nodiscard]] float getAccelerationZ() const;
 
     void printGyro() const;
 
-    bool hasLostConnection() const;
+    [[nodiscard]] bool hasLostConnection() const;
 
     void setThrottle(float value);
 
@@ -131,19 +132,19 @@ public:
 
     virtual void disableMotors();
 
-    bool isMotorsEnabled() const;
+    [[nodiscard]] bool isMotorsEnabled() const;
 
-    ControlMode_t getControlMode() const;
+    [[nodiscard]] ControlMode_t getControlMode() const;
 
     void setControlMode(ControlMode_t control_mode);
 
-    unsigned long delayToKeepFeedbackLoopHz(long start_microseconds_timestamp) const;
+    [[nodiscard]] unsigned long delayToKeepFeedbackLoopHz(long start_microseconds_timestamp) const;
 
-    unsigned long timestampMicroseconds() const;
+    [[nodiscard]] unsigned long timestampMicroseconds() const;
 
-    unsigned long timestampMilliseconds() const;
+    [[nodiscard]] unsigned long timestampMilliseconds() const;
 
-    int getFeedbackLoopHz() const;
+    [[nodiscard]] int getFeedbackLoopHz() const;
 };
 
 #include "template_drone.ipp"
