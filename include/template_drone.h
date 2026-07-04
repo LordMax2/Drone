@@ -1,31 +1,44 @@
 #pragma once
 
-#include "base_drone_gyro.h"
-#include "base_hardware_processor.h"
-#include "base_control_mode.h"
-#include "base_drone.h"
-#include "base_drone_position.h"
-#include <new>
+#include "concept_control_mode.h"
+#include "concept_drone_position.h"
 
 /*
  * The SomeGyroPidType should specify the throttle for each motor depending on the PID.
  * The SomeDroneGyroType should abstract away the hardware of an IMU and just implement a few interface methods.
  */
-template<class SomeGyroPidType>
-class TemplateDrone : public BaseDrone {
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType,
+    HardwareProcessorConcept SomeHardwareProcessorType>
+class TemplateDrone
+{
+    float _throttle = 0;
+    float _yaw_desired_angle = 0;
+    float _pitch_desired_angle = 0;
+    float _roll_desired_angle = 0;
+    ControlMode_t _current_control_mode = none;
+    unsigned long _throttle_set_timestamp = 0;
+    unsigned long _yaw_desired_angle_set_timestamp = 0;
+    unsigned long _desired_pitch_angle_set_timestamp = 0;
+    unsigned long _desired_roll_angle_set_timestamp = 0;
+    bool _is_motors_enabled = false;
+    unsigned long _transmission_timeout_definition_milliseconds;
+    int _feedback_loop_hz;
+
 public:
     /*
      * Create a drone
      * Default parameters that work are: 500, 200, 10000
      */
     TemplateDrone(
-        float transmission_timeout_definition_milliseconds,
-        int feedback_loop_hz,
-        BaseHardwareProcessor *processor,
-        BaseDroneGyro *gyro,
-        BaseDronePosition *position);
+        unsigned long transmission_timeout_definition_milliseconds,
+        int feedback_loop_hz);
+
+    virtual ~TemplateDrone() = default;
 
     SomeGyroPidType pid;
+    SomeHardwareProcessorType processor;
+    SomeGyroType gyro;
+    SomePositionType position;
 
     void printPid();
 
@@ -54,7 +67,84 @@ public:
     void setPidConstants(float yaw_kp, float yaw_ki, float yaw_kd, bool yaw_compass_mode, float pitch_kp,
                          float pitch_ki, float pitch_kd, float roll_kp, float roll_ki, float roll_kd);
 
-    void activateControlMode(BaseControlMode *control_mode);
+    template <typename ControlMode>
+        requires ControlModeConcept<ControlMode_t, SomeGyroPidType, SomePositionType, SomeGyroType,
+                                    SomeHardwareProcessorType>
+    void activateControlMode(ControlMode* control_mode);
+
+    [[nodiscard]] float getThrottle() const;
+
+    [[nodiscard]] float getDesiredYawAngle() const;
+
+    [[nodiscard]] float getDesiredPitchAngle() const;
+
+    [[nodiscard]] float getDesiredRollAngle() const;
+
+    [[nodiscard]] float getAltitude() const;
+
+    [[nodiscard]] float getLongitude() const;
+
+    [[nodiscard]] float getLatitude() const;
+
+    [[nodiscard]] float getVelocityX() const;
+
+    [[nodiscard]] float getVelocityY() const;
+
+    [[nodiscard]] float getVelocityZ() const;
+
+    virtual void setup() = 0;
+
+    virtual bool run() = 0;
+
+    virtual void runMotors(float gyro_roll, float gyro_pitch, float gyro_yaw, float delta_time_seconds) = 0;
+
+    virtual void stopMotors() = 0;
+
+    virtual void setupMotors() = 0;
+
+    [[nodiscard]] bool updateGyro() const;
+
+    [[nodiscard]] float getYaw() const;
+
+    [[nodiscard]] float getPitch() const;
+
+    [[nodiscard]] float getRoll() const;
+
+    [[nodiscard]] float getAccelerationX() const;
+
+    [[nodiscard]] float getAccelerationY() const;
+
+    [[nodiscard]] float getAccelerationZ() const;
+
+    void printGyro() const;
+
+    [[nodiscard]] bool hasLostConnection() const;
+
+    void setThrottle(float value);
+
+    void setDesiredYawAngle(float value);
+
+    void setDesiredPitchAngle(float value);
+
+    void setDesiredRollAngle(float value);
+
+    virtual void enableMotors();
+
+    virtual void disableMotors();
+
+    [[nodiscard]] bool isMotorsEnabled() const;
+
+    [[nodiscard]] ControlMode_t getControlMode() const;
+
+    void setControlMode(ControlMode_t control_mode);
+
+    [[nodiscard]] unsigned long delayToKeepFeedbackLoopHz(long start_microseconds_timestamp) const;
+
+    [[nodiscard]] unsigned long timestampMicroseconds() const;
+
+    [[nodiscard]] unsigned long timestampMilliseconds() const;
+
+    [[nodiscard]] int getFeedbackLoopHz() const;
 };
 
 #include "template_drone.ipp"

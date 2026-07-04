@@ -19,11 +19,11 @@ public:
 
     void resetIntegral();
 
-    float getKp() const;
+    [[nodiscard]] float getKp() const;
 
-    float getKi() const;
+    [[nodiscard]] float getKi() const;
 
-    float getKd() const;
+    [[nodiscard]] float getKd() const;
 
     void runOptimizer(float current, float desired, long timestamp_milliseconds);
 
@@ -39,7 +39,7 @@ public:
     static float fconstrain(float input, float min_value, float max_value);
 
 protected:
-    float previousError() const { return _previous_error; }
+    [[nodiscard]] float previousError() const { return _previous_error; }
 
 private:
     float _pid_max;

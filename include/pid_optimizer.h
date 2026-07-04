@@ -39,11 +39,11 @@ public:
 
     float learning_rate = 0.1f;
 
-    float getKp() const { return current_kp; }
+    [[nodiscard]] float getKp() const { return current_kp; }
 
-    float getKi() const { return current_ki; }
+    [[nodiscard]] float getKi() const { return current_ki; }
 
-    float getKd() const { return current_kd; }
+    [[nodiscard]] float getKd() const { return current_kd; }
 
     virtual float getBestKp() { return best_kp; }
 
@@ -72,7 +72,7 @@ public:
 
     void startTrial(long timestamp_milliseconds);
 
-    long score() const;
+    [[nodiscard]] long score() const;
 
     virtual void evaluateTrial();
 

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "pid_optimizer.h"
 #include "pid.h"
 #include "pid_yaw_compass.h"
 
@@ -55,23 +54,23 @@ public:
 
     void resetIntegral();
 
-    float getRollKp() const;
+    [[nodiscard]] float getRollKp() const;
 
-    float getRollKi() const;
+    [[nodiscard]] float getRollKi() const;
 
-    float getRollKd() const;
+    [[nodiscard]] float getRollKd() const;
 
-    float getPitchKp() const;
+    [[nodiscard]] float getPitchKp() const;
 
-    float getPitchKi() const;
+    [[nodiscard]] float getPitchKi() const;
 
-    float getPitchKd() const;
+    [[nodiscard]] float getPitchKd() const;
 
-    float getYawKp() const;
+    [[nodiscard]] float getYawKp() const;
 
-    float getYawKi() const;
+    [[nodiscard]] float getYawKi() const;
 
-    float getYawKd() const;
+    [[nodiscard]] float getYawKd() const;
 
     void runRollOptimizer(float gyro_roll, float roll_desired_angle, long timestamp_milliseconds);
 
@@ -85,13 +84,13 @@ public:
 
     void saveYawError(float gyro_yaw, float yaw_desired_angle) const;
 
-    float yawPid(float gyro_yaw, float yaw_desired_angle, float delta_time_seconds = 1.0f) const;
+    [[nodiscard]] float yawPid(float gyro_yaw, float yaw_desired_angle, float delta_time_seconds = 1.0f) const;
 
     float rollPid(float gyro_roll, float roll_desired_angle, float delta_time_seconds = 1.0f);
 
     float pitchPid(float gyro_pitch, float pitch_desired_angle, float delta_time_seconds = 1.0f);
 
-    void setYawCompassMode(bool compass_mode) {
+    void setYawCompassMode(const bool compass_mode) {
         const float kp = _pid_yaw->getKp();
         const float ki = _pid_yaw->getKi();
         const float kd = _pid_yaw->getKd();
