@@ -33,6 +33,30 @@ jobs:
           curl -L "https://github.com/ZakKemble/avr-gcc-build/releases/download/v15.2.0-1/avr-gcc-15.2.0-x64-linux.tar.bz2" -o avr-gcc.tar.bz2
           mkdir -p avr-gcc
           tar -xf avr-gcc.tar.bz2 -C avr-gcc --strip-components=1
+          
+          cat << 'EOF' > avr-gcc/package.json
+          {
+            "name": "toolchain-avr-gcc",
+            "version": "15.2.0",
+            "description": "Modern C++ using GCC Toolchain for Microchip AVR microcontrollers",
+            "keywords": [
+              "toolchain",
+              "build tools",
+              "compiler",
+              "assembler",
+              "linker",
+              "preprocessor",
+              "microchip",
+              "avr",
+              "c++20"
+            ],
+            "homepage": "https://gcc.gnu.org/wiki/avr-gcc",
+            "license": "GPL-2.0-or-later",
+            "system": [
+              "linux_x86_64"
+            ]
+          }
+          EOF
 
       - name: Build PlatformIO Project
         env:
