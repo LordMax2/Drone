@@ -2,13 +2,14 @@
 
 #include "concept_control_mode.h"
 #include "concept_drone_position.h"
+#include "concept_hardware_processor.h"
+#include "concept_drone_gyro.h"
 
 /*
  * The SomeGyroPidType should specify the throttle for each motor depending on the PID.
  * The SomeDroneGyroType should abstract away the hardware of an IMU and just implement a few interface methods.
  */
-template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType,
-    HardwareProcessorConcept SomeHardwareProcessorType>
+template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 class TemplateDrone
 {
     float _throttle = 0;
@@ -31,7 +32,8 @@ public:
      */
     TemplateDrone(
         unsigned long transmission_timeout_definition_milliseconds,
-        int feedback_loop_hz);
+        int feedback_loop_hz,
+        int gyro_reset_pin);
 
     virtual ~TemplateDrone() = default;
 
@@ -68,8 +70,6 @@ public:
                          float pitch_ki, float pitch_kd, float roll_kp, float roll_ki, float roll_kd);
 
     template <typename ControlMode>
-        requires ControlModeConcept<ControlMode_t, SomeGyroPidType, SomePositionType, SomeGyroType,
-                                    SomeHardwareProcessorType>
     void activateControlMode(ControlMode* control_mode);
 
     [[nodiscard]] float getThrottle() const;
