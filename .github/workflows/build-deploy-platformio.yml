@@ -29,6 +29,8 @@ jobs:
         run: pip install --upgrade platformio
 
       - name: Build PlatformIO Project
+        env:
+          PIO_AVR_GCC_PATH: "https://github.com/ZakKemble/avr-gcc-build/releases/download/v15.2.0-1/avr-gcc-15.2.0-x64-linux.tar.bz2"
         run: pio run
 
       - name: Login to PlatformIO
