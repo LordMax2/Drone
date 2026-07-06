@@ -26,18 +26,18 @@ public:
     explicit MockDroneGyro(const int) {}
 
     void setup() {}
-    bool reload() const { return true; }
+    bool reload() { return true; }
     void reset() {}
-    float yaw() const { return 0.0f; }
-    float pitch() const { return 0.0f; }
-    float roll() const { return 0.0f; }
-    float accelerationX() const { return 0.0f; }
-    float accelerationY() const { return 0.0f; }
-    float accelerationZ() const { return 0.0f; }
+    float yaw() { return 0.0f; }
+    float pitch() { return 0.0f; }
+    float roll() { return 0.0f; }
+    float accelerationX() { return 0.0f; }
+    float accelerationY() { return 0.0f; }
+    float accelerationZ() { return 0.0f; }
     void printYawPitchRoll() const {}
     bool setModeAcro() { return true; }
     bool setModeEuler() { return true; }
-    unsigned long timestampMilliseconds() const { return millis(); }
+    unsigned long timestampMilliseconds() { return millis(); }
 };
 
 static_assert(DroneGyroConcept<MockDroneGyro>);
@@ -47,12 +47,12 @@ class MockDronePosition
 public:
     explicit MockDronePosition(MockDroneGyro*) {}
 
-    float getAltitude() const { return 0.0f; }
-    float getLongitude() const { return 0.0f; }
-    float getLatitude() const { return 0.0f; }
-    float getVelocityX() const { return 0.0f; }
-    float getVelocityY() const { return 0.0f; }
-    float getVelocityZ() const { return 0.0f; }
+    float getAltitude() { return 0.0f; }
+    float getLongitude(){ return 0.0f; }
+    float getLatitude() { return 0.0f; }
+    float getVelocityX() { return 0.0f; }
+    float getVelocityY() { return 0.0f; }
+    float getVelocityZ() { return 0.0f; }
 };
 
 static_assert(DronePositionConcept<MockDronePosition>);
@@ -97,15 +97,15 @@ public:
     {
     }
 
-    void setup() override;
+    void setup();
 
-    bool run() override { return false; }
+    bool run() { return false; }
 
-    void runMotors(const float, const float, const float, const float) override {}
+    void runMotors(const float, const float, const float, const float) {}
 
-    void stopMotors() override {}
+    void stopMotors() {}
 
-    void setupMotors() override {}
+    void setupMotors() {}
 };
 
 #include "control_mode_none.h"

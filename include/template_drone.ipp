@@ -161,82 +161,82 @@ float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getAltitude() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getAltitude()
 {
     return position.getAltitude();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getLatitude() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getLatitude()
 {
     return position.getLatitude();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getLongitude() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getLongitude()
 {
     return position.getLongitude();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityX() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityX()
 {
     return position.getVelocityX();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityY() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityY()
 {
     return position.getVelocityY();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityZ() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityZ()
 {
     return position.getVelocityZ();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::printGyro() const
+void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::printGyro()
 {
     gyro.printYawPitchRoll();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getYaw() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getYaw()
 {
     return gyro.yaw();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getPitch() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getPitch()
 {
     return gyro.pitch();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getRoll() const
+float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getRoll()
 {
     return gyro.roll();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
-                    SomeHardwareProcessorType>::getAccelerationX() const
+                    SomeHardwareProcessorType>::getAccelerationX()
 {
     return gyro.accelerationX();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
-                    SomeHardwareProcessorType>::getAccelerationY() const
+                    SomeHardwareProcessorType>::getAccelerationY()
 {
     return gyro.accelerationY();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
-                    SomeHardwareProcessorType>::getAccelerationZ() const
+                    SomeHardwareProcessorType>::getAccelerationZ()
 {
     return gyro.accelerationZ();
 }
@@ -303,7 +303,7 @@ ControlMode_t TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
-bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::updateGyro() const
+bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::updateGyro()
 {
     return gyro.reload();
 }
@@ -311,7 +311,7 @@ bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 unsigned long TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                             SomeHardwareProcessorType>::delayToKeepFeedbackLoopHz(
-    const long start_microseconds_timestamp) const
+    const long start_microseconds_timestamp)
 {
     const unsigned long current_microseconds_timestamp = processor.microsecondsTimestamp();
     const long microseconds_feedback_loop_should_take = 1000000 / _feedback_loop_hz;
@@ -344,14 +344,14 @@ bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 unsigned long TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
-                            SomeHardwareProcessorType>::timestampMilliseconds() const
+                            SomeHardwareProcessorType>::timestampMilliseconds()
 {
     return processor.millisecondsTimestamp();
 }
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 unsigned long TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
-                            SomeHardwareProcessorType>::timestampMicroseconds() const
+                            SomeHardwareProcessorType>::timestampMicroseconds()
 {
     return processor.microsecondsTimestamp();
 }

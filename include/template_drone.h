@@ -80,43 +80,33 @@ public:
 
     [[nodiscard]] float getDesiredRollAngle() const;
 
-    [[nodiscard]] float getAltitude() const;
+    [[nodiscard]] float getAltitude();
 
-    [[nodiscard]] float getLongitude() const;
+    [[nodiscard]] float getLongitude();
 
-    [[nodiscard]] float getLatitude() const;
+    [[nodiscard]] float getLatitude();
 
-    [[nodiscard]] float getVelocityX() const;
+    [[nodiscard]] float getVelocityX();
 
-    [[nodiscard]] float getVelocityY() const;
+    [[nodiscard]] float getVelocityY();
 
-    [[nodiscard]] float getVelocityZ() const;
+    [[nodiscard]] float getVelocityZ();
 
-    virtual void setup() = 0;
+    [[nodiscard]] bool updateGyro();
 
-    virtual bool run() = 0;
+    [[nodiscard]] float getYaw();
 
-    virtual void runMotors(float gyro_roll, float gyro_pitch, float gyro_yaw, float delta_time_seconds) = 0;
+    [[nodiscard]] float getPitch();
 
-    virtual void stopMotors() = 0;
+    [[nodiscard]] float getRoll();
 
-    virtual void setupMotors() = 0;
+    [[nodiscard]] float getAccelerationX();
 
-    [[nodiscard]] bool updateGyro() const;
+    [[nodiscard]] float getAccelerationY();
 
-    [[nodiscard]] float getYaw() const;
+    [[nodiscard]] float getAccelerationZ();
 
-    [[nodiscard]] float getPitch() const;
-
-    [[nodiscard]] float getRoll() const;
-
-    [[nodiscard]] float getAccelerationX() const;
-
-    [[nodiscard]] float getAccelerationY() const;
-
-    [[nodiscard]] float getAccelerationZ() const;
-
-    void printGyro() const;
+    void printGyro();
 
     [[nodiscard]] bool hasLostConnection() const;
 
@@ -138,11 +128,11 @@ public:
 
     void setControlMode(ControlMode_t control_mode);
 
-    [[nodiscard]] unsigned long delayToKeepFeedbackLoopHz(long start_microseconds_timestamp) const;
+    [[nodiscard]] unsigned long delayToKeepFeedbackLoopHz(long start_microseconds_timestamp);
 
-    [[nodiscard]] unsigned long timestampMicroseconds() const;
+    [[nodiscard]] unsigned long timestampMicroseconds();
 
-    [[nodiscard]] unsigned long timestampMilliseconds() const;
+    [[nodiscard]] unsigned long timestampMilliseconds();
 
     [[nodiscard]] int getFeedbackLoopHz() const;
 };
