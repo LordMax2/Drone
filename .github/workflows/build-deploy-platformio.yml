@@ -63,6 +63,12 @@ jobs:
           PIO_AVR_GCC_PATH: "symlink://${{ github.workspace }}/avr-gcc"
         run: pio run
 
+      - name: Remove build artifacts before publish
+        run: rm -rf .pio avr-gcc avr-gcc.tar.bz2 compile_commands.json
+
+      - name: Verify package contents
+        run: pio pkg pack
+
       - name: Login to PlatformIO
         run: pio account login -u ${{ secrets.PLATFORM_IO_USERNAME }} -p ${{ secrets.PLATFORM_IO_TOKEN }}
       

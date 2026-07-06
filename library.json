@@ -18,7 +18,21 @@
   ],
   "license": "MIT",
   "homepage": "https://klevebrand.se",
-  "dependencies": { 
+  "export": {
+    "exclude": [
+      ".pio",
+      ".github",
+      ".idea",
+      "avr-gcc",
+      "*.tar.bz2",
+      "platformio.ini",
+      "compile_commands.json",
+      "CMakeLists.txt",
+      "CLAUDE.md",
+      "src/main.cpp"
+    ]
+  },
+  "dependencies": {
   },
   "frameworks": "*",
   "platforms": "Arduino"
