@@ -5,18 +5,13 @@ template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, cla
 class ControlModeNone
 {
 public:
-    static ControlMode_t type() { return none; }
-    static const char* name() { return "none"; }
-    static bool yawCompassMode() { return false; }
-    static PidConstants_t pidConstants() { return PidConstants_t{}; }
+    ControlMode_t type() { return none; }
+    const char* name() { return "none"; }
+    bool yawCompassMode() { return false; }
+    PidConstants_t pidConstants() { return PidConstants_t{}; }
 
-    static void activate(
-        TemplateDroneMock<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>* drone)
+    void activate(TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>* drone)
     {
+        (void)drone;
     }
-
-    static_assert(ControlModeConcept<
-                      ControlModeNone,
-                      SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType
-                  >, "ControlModeNone does not satisfy ControlModeConcept");
 };

@@ -4,7 +4,7 @@
 #include "concepts.h"
 
 template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeProcessorType>
-class TemplateDroneMock;
+class TemplateDrone;
 
 enum ControlMode_t
 {
@@ -15,7 +15,7 @@ enum ControlMode_t
 
 template <class T, class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 concept ControlModeConcept = requires(
-    T mode, TemplateDroneMock<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>* drone)
+    T mode, TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>* drone)
     {
         { mode.type() } -> same_as<ControlMode_t>;
 

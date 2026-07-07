@@ -48,7 +48,7 @@ public:
     explicit MockDronePosition(MockDroneGyro*) {}
 
     float getAltitude() { return 0.0f; }
-    float getLongitude(){ return 0.0f; }
+    float getLongitude() { return 0.0f; }
     float getLatitude() { return 0.0f; }
     float getVelocityX() { return 0.0f; }
     float getVelocityY() { return 0.0f; }
@@ -70,29 +70,18 @@ class MockGyroPid : public GyroPid
 public:
     using GyroPid::GyroPid;
 
-    void printPid(
-        const float, const float, const float, const float, const float, const float) const
-    {
-    }
+    void printPid(const float, const float, const float, const float, const float, const float) const {}
 
     void printConstants() const {}
 };
 
-template <
-    class SomeGyroPidType, class SomePositionType,
-    class SomeGyroType, class SomeHardwareProcessorType>
-class TemplateDroneMock
-    : public TemplateDrone<
-          SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>
+template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+class TemplateDroneMock : public TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>
 {
-    using Base = TemplateDrone<
-        SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>;
+    using Base = TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>;
 
 public:
-    TemplateDroneMock(
-        const unsigned long transmission_timeout_ms,
-        const int feedback_loop_hz,
-        const int gyro_reset_pin)
+    TemplateDroneMock(const unsigned long transmission_timeout_ms, const int feedback_loop_hz, const int gyro_reset_pin)
         : Base(transmission_timeout_ms, feedback_loop_hz, gyro_reset_pin)
     {
     }
@@ -110,22 +99,13 @@ public:
 
 #include "control_mode_none.h"
 
-template <class SomeGyroPidType, class SomePositionType,    class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
 void TemplateDroneMock<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setup()
 {
-    using NoneMode = ControlModeNone<
-        SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>;
+    using NoneMode = ControlModeNone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>;
     static NoneMode none_mode;
 
-    Base::setControlMode(none_mode.type());
-    none_mode.activate(this);
-
-    const auto pid_constants = none_mode.pidConstants();
-    Base::setPidConstants(
-        pid_constants.yaw_kp, pid_constants.yaw_ki, pid_constants.yaw_kd,
-        none_mode.yawCompassMode(),
-        pid_constants.pitch_kp, pid_constants.pitch_ki, pid_constants.pitch_kd,
-        pid_constants.roll_kp, pid_constants.roll_ki, pid_constants.roll_kd);
+    Base::activateControlMode(&none_mode);
 }
 
 using MockDrone = TemplateDroneMock<MockGyroPid, MockDronePosition, MockDroneGyro, MockHardwareProcessor>;

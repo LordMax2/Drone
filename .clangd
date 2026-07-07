@@ -1,0 +1,9 @@
+CompileFlags:
+  CompilationDatabase: .
+  Add:
+    - -std=gnu++20
+    - -Iinclude
+    - -Isrc
+    - -I.pio/libdeps/ATmega2560/klevebrand-all-drone-controller-core/include
+    - -I.pio/libdeps/ATmega2560/klevebrand-drone-gyro-bno085/include
+    - -I.pio/libdeps/ATmega2560/klevebrand-drone-position-bmp280-neom9n/include
