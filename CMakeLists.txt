@@ -1,18 +1,12 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(klevebrand_all_drone_controller_core
-    VERSION 1.9.2
+    VERSION 3.0.4
     DESCRIPTION "Klevebrand all-drone controller core"
     LANGUAGES CXX
 )
 
 add_library(klevebrand_all_drone_controller_core STATIC
-    src/base_drone.cpp
-    src/base_drone_gyro.cpp
-    src/base_drone_motor.cpp
-    src/base_drone_position.cpp
-    src/base_hardware_processor.cpp
-    src/base_pid_repository.cpp
     src/gyro_pid.cpp
     src/pid.cpp
     src/pid_optimizer.cpp
@@ -25,7 +19,7 @@ target_include_directories(klevebrand_all_drone_controller_core
         $<INSTALL_INTERFACE:include>
 )
 
-target_compile_features(klevebrand_all_drone_controller_core PUBLIC cxx_std_17)
+target_compile_features(klevebrand_all_drone_controller_core PUBLIC cxx_std_20)
 
 include(CMakePackageConfigHelpers)
 include(GNUInstallDirs)

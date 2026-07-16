@@ -3,7 +3,7 @@
 #include "pid_constants.h"
 #include "concepts.h"
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 class TemplateDrone;
 
 enum ControlMode_t

@@ -9,7 +9,7 @@
  * The SomeGyroPidType should specify the throttle for each motor depending on the PID.
  * The SomeDroneGyroType should abstract away the hardware of an IMU and just implement a few interface methods.
  */
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 class TemplateDrone
 {
     float _throttle = 0;

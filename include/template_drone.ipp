@@ -1,6 +1,6 @@
 #include <new>
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::TemplateDrone(
     const unsigned long transmission_timeout_definition_milliseconds,
     const int feedback_loop_hz,
@@ -14,7 +14,7 @@ TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProce
 {
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setPidConstants(
     float yaw_kp, float yaw_ki, float yaw_kd, bool yaw_compass_mode,
     float pitch_kp, float pitch_ki, float pitch_kd, float roll_kp,
@@ -28,25 +28,25 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
         0, getFeedbackLoopHz());
 };
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::printPid()
 {
     pid.printPid(getRoll(), getDesiredRollAngle(), getPitch(), getDesiredPitchAngle(), getYaw(), getDesiredYawAngle());
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::printPidConstants()
 {
     pid.printConstants();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::resetPid()
 {
     pid.reset();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 template <typename ControlMode>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::activateControlMode(
     ControlMode* control_mode)
@@ -75,7 +75,7 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
     processor.print("\n");
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::calculatePidIntegral(
     float gyro_roll, float gyro_pitch, float gyro_yaw,
     float delta_time_seconds)
@@ -87,7 +87,7 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
         delta_time_seconds);
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::savePidErrors(
     float gyro_roll, float gyro_pitch, float gyro_yaw)
 {
@@ -96,7 +96,7 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
     pid.saveYawError(gyro_yaw, getDesiredYawAngle());
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::runPidOptimizer(
     long timestamp_milliseconds)
 {
@@ -105,143 +105,143 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
     pid.runYawOptimizer(getYaw(), getDesiredYawAngle(), timestamp_milliseconds);
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::runYawPidOptimizer(
     long timestamp_milliseconds)
 {
     pid.runYawOptimizer(getYaw(), getDesiredYawAngle(), timestamp_milliseconds);
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::runPitchPidOptimizer(
     long timestamp_milliseconds)
 {
     pid.runPitchOptimizer(getPitch(), getDesiredPitchAngle(), timestamp_milliseconds);
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::runRollPidOptimizer(
     long timestamp_milliseconds)
 {
     pid.runRollOptimizer(getRoll(), getDesiredRollAngle(), timestamp_milliseconds);
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setYawCompassMode(
     bool yaw_compass_mode)
 {
     pid.setYawCompassMode(yaw_compass_mode);
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getThrottle() const
 {
     return _throttle;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                     SomeHardwareProcessorType>::getDesiredYawAngle() const
 {
     return _yaw_desired_angle;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                     SomeHardwareProcessorType>::getDesiredPitchAngle() const
 {
     return _pitch_desired_angle;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                     SomeHardwareProcessorType>::getDesiredRollAngle() const
 {
     return _roll_desired_angle;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getAltitude()
 {
     return position.getAltitude();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getLatitude()
 {
     return position.getLatitude();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getLongitude()
 {
     return position.getLongitude();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityX()
 {
     return position.getVelocityX();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityY()
 {
     return position.getVelocityY();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getVelocityZ()
 {
     return position.getVelocityZ();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::printGyro()
 {
     gyro.printYawPitchRoll();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getYaw()
 {
     return gyro.yaw();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getPitch()
 {
     return gyro.pitch();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getRoll()
 {
     return gyro.roll();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                     SomeHardwareProcessorType>::getAccelerationX()
 {
     return gyro.accelerationX();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                     SomeHardwareProcessorType>::getAccelerationY()
 {
     return gyro.accelerationY();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 float TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                     SomeHardwareProcessorType>::getAccelerationZ()
 {
     return gyro.accelerationZ();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                    SomeHardwareProcessorType>::hasLostConnection() const
 {
@@ -251,7 +251,7 @@ bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
     return transmitter_lost_connection;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setThrottle(
     const float value)
 {
@@ -259,7 +259,7 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
     _throttle_set_timestamp = processor.millisecondsTimestamp();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setDesiredYawAngle(
     const float value)
 {
@@ -267,7 +267,7 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
     _yaw_desired_angle_set_timestamp = processor.millisecondsTimestamp();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setDesiredPitchAngle(
     const float value)
 {
@@ -275,7 +275,7 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
     _desired_pitch_angle_set_timestamp = processor.millisecondsTimestamp();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setDesiredRollAngle(
     const float value)
 {
@@ -283,32 +283,32 @@ void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardware
     _desired_roll_angle_set_timestamp = processor.millisecondsTimestamp();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::enableMotors()
 {
     _is_motors_enabled = true;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::disableMotors()
 {
     _is_motors_enabled = false;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 ControlMode_t TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                             SomeHardwareProcessorType>::getControlMode() const
 {
     return _current_control_mode;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::updateGyro()
 {
     return gyro.reload();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 unsigned long TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                             SomeHardwareProcessorType>::delayToKeepFeedbackLoopHz(
     const long start_microseconds_timestamp)
@@ -329,34 +329,34 @@ unsigned long TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
     return 0;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 void TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::setControlMode(
     ControlMode_t control_mode)
 {
     _current_control_mode = control_mode;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 bool TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::isMotorsEnabled() const
 {
     return _is_motors_enabled;
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 unsigned long TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                             SomeHardwareProcessorType>::timestampMilliseconds()
 {
     return processor.millisecondsTimestamp();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 unsigned long TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType,
                             SomeHardwareProcessorType>::timestampMicroseconds()
 {
     return processor.microsecondsTimestamp();
 }
 
-template <class SomeGyroPidType, class SomePositionType, class SomeGyroType, class SomeHardwareProcessorType>
+template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 int TemplateDrone<SomeGyroPidType, SomePositionType, SomeGyroType, SomeHardwareProcessorType>::getFeedbackLoopHz() const
 {
     return _feedback_loop_hz;
