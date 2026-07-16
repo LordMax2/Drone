@@ -1,6 +1,6 @@
 {
   "name": "klevebrand-all-drone-controller-core",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "A drone core library for all types of drones. By Klevebrand.",
   "keywords": "klevebrand, drone, quadcopter, airplane, hexacopter, octacopter",
   "repository":

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(klevebrand_all_drone_controller_core
-    VERSION 3.0.4
+    VERSION 3.0.5
     DESCRIPTION "Klevebrand all-drone controller core"
     LANGUAGES CXX
 )

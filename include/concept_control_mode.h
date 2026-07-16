@@ -2,6 +2,9 @@
 
 #include "pid_constants.h"
 #include "concepts.h"
+#include "concept_drone_position.h"
+#include "concept_hardware_processor.h"
+#include "concept_drone_gyro.h"
 
 template <class SomeGyroPidType, DronePositionConcept SomePositionType, DroneGyroConcept SomeGyroType, HardwareProcessorConcept SomeHardwareProcessorType>
 class TemplateDrone;
